@@ -51,3 +51,11 @@ O cliente do sistema interage com a interface `CriadorVeiculo`, não com as clas
 ---
 
 Ao aplicar esses Design Patterns, você não apenas resolve problemas específicos, mas também contribui para um código mais limpo, mais flexível e mais fácil de evoluir.
+
+# Passos para executar o projeto
+
+Após clonar o repositorio, dentro da pasta ./JOAO_VITOR_MONTIPO_BECKER execute os comando abaixo dentro do terminal
+
+```bash
+npm run dev 
+o
