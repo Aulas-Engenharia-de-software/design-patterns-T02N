@@ -3,6 +3,7 @@
 import { Cafe } from "./Cafe";
 import { CafeComLeite } from "./CafeComLeite";
 import { CafeComLeiteComChocolate } from "./CafeComLeiteComChocolate";
+import { CafeComLeiteComChocolateComCanela } from "./CafeComLeiteComChocolateComCanela";
 import { Expresso } from "./Expresso";
 
 function main() {
@@ -19,7 +20,14 @@ function main() {
   console.log(
     `Custo café com leite e chocolate: ${cafeComLeiteComChocolate.custo}`
   );
-  console.log(`Descrição: ${cafeComLeiteComChocolate.descricao}`);
+
+  const cafeComLeiteComChocolateComCanela =
+    new CafeComLeiteComChocolateComCanela();
+  console.log(
+    `Custo café com leite, chocolate e canela: ${cafeComLeiteComChocolateComCanela.custo}`
+  );
+
+  console.log(`Descrição: ${cafeComLeiteComChocolateComCanela.descricao}`);
 
   // Expresso
   const expresso = new Expresso();

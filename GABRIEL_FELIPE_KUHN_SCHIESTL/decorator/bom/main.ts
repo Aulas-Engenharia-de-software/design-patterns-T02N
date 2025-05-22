@@ -1,5 +1,6 @@
 // Exemplo de uso do padrão Decorator para bebidas
 import { Cafe } from "./Cafe";
+import { Canela } from "./Canela";
 import { Chocolate } from "./Chocolate";
 import { Expresso } from "./Expresso";
 import { Leite } from "./Leite";
@@ -18,8 +19,16 @@ function main() {
   console.log(
     `Custo café com leite e chocolate: ${cafeComLeiteComChocolate.custo}`
   );
+
+  const cafeComLeiteComChocolateComCanela = new Canela(
+    cafeComLeiteComChocolate
+  );
+  console.log(
+    `Custo café com leite, chocolate e canela: ${cafeComLeiteComChocolateComCanela.custo}`
+  );
+
   // Mostra a descrição final da bebida decorada
-  console.log(`Descrição: ${cafeComLeiteComChocolate.descricao}`);
+  console.log(`Descrição: ${cafeComLeiteComChocolateComCanela.descricao}`);
 
   // Outro exemplo: café expresso
   const cafe2 = new Cafe();
