@@ -65,6 +65,8 @@ export const PaymentForm = () => {
             borderRadius: "4px",
             border: "1px solid #ccc",
             marginTop: "4px",
+            background: "#fff",
+            color: "#333",
           }}
         >
           <option value="credit_card">Cartão de Crédito</option>
