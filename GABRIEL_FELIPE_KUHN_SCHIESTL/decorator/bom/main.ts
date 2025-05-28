@@ -4,6 +4,9 @@ import { Canela } from "./Canela";
 import { Chocolate } from "./Chocolate";
 import { Expresso } from "./Expresso";
 import { Leite } from "./Leite";
+import { Chantilly } from "./Chantilly";
+import { Caramelo } from "./Caramelo";
+import { Baunilha } from "./Baunilha";
 
 function main() {
   // Cria um café simples
@@ -36,6 +39,23 @@ function main() {
   const expresso = new Expresso(cafe2);
   console.log(`Custo expresso: ${expresso.custo}`);
   console.log(`Descrição: ${expresso.descricao}`);
+
+  // Exemplo: café com chantilly
+  const cafeComChantilly = new Chantilly(cafe);
+  console.log(`Custo café com chantilly: ${cafeComChantilly.custo}`);
+  console.log(`Descrição: ${cafeComChantilly.descricao}`);
+
+  // Exemplo: café com leite, chocolate, canela e chantilly
+  const cafeCompleto = new Chantilly(cafeComLeiteComChocolateComCanela);
+  console.log(`Custo café completo: ${cafeCompleto.custo}`);
+  console.log(`Descrição: ${cafeCompleto.descricao}`);
+
+  // Exemplo: café com caramelo e baunilha
+  const cafeComCarameloEBaunilha = new Baunilha(new Caramelo(cafe));
+  console.log(
+    `Custo café com caramelo e baunilha: ${cafeComCarameloEBaunilha.custo}`
+  );
+  console.log(`Descrição: ${cafeComCarameloEBaunilha.descricao}`);
 }
 
 main();
