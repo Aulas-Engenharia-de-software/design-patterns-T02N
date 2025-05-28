@@ -1,4 +1,4 @@
-class FreteNormal {
+class FretePadrao {
   calcular(peso) {
     return peso * 1.0;
   }
@@ -29,8 +29,8 @@ class CalculadoraFrete {
 
 const calculadora = new CalculadoraFrete();
 
-calculadora.setEstrategia(new FreteNormal());
-console.log("Normal:", calculadora.calcular(10));
+calculadora.setEstrategia(new FretePadrao());
+console.log("Padrao:", calculadora.calcular(10));
 
 calculadora.setEstrategia(new FreteExpresso());
 console.log("Expresso:", calculadora.calcular(10));
