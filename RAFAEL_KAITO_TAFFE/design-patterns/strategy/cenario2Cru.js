@@ -1,15 +1,28 @@
-function calcularFrete(tipo, peso) {
-  if (tipo === "normal") {
-    return peso * 1.0;
-  } else if (tipo === "expresso") {
-    return peso * 1.5;
-  } else if (tipo === "internacional") {
-    return peso * 3.0;
+function calcularPrecoFinal(tipoSocio, valorIngresso) {
+  if (tipoSocio === "nenhum") {
+    return valorIngresso;
+  } else if (tipoSocio === "prata") {
+    return valorIngresso * 0.95;
+  } else if (tipoSocio === "gold") {
+    return valorIngresso * 0.88;
+  } else if (tipoSocio === "diamante") {
+    return valorIngresso * 0.8;
+  } else if (tipoSocio === "zico") {
+    const precoComDesconto = valorIngresso * 0.75;
+    const cashback = precoComDesconto * 0.04;
+    return {
+      total: precoComDesconto,
+      cashback: cashback,
+    };
   } else {
-    throw new Error("Tipo de frete inválido");
+    throw new Error("Tipo de sócio inválido");
   }
 }
 
-console.log("Normal:", calcularFrete("normal", 10));
-console.log("Expresso:", calcularFrete("expresso", 10));
-console.log("Internacional:", calcularFrete("internacional", 10));
+const valorIngresso = 250;
+
+console.log("Sem sócio:", calcularPrecoFinal("nenhum", valorIngresso));
+console.log("Prata:", calcularPrecoFinal("prata", valorIngresso));
+console.log("Gold:", calcularPrecoFinal("gold", valorIngresso));
+console.log("Diamante:", calcularPrecoFinal("diamante", valorIngresso));
+console.log("Zico:", calcularPrecoFinal("zico", valorIngresso));

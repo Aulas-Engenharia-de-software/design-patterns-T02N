@@ -1,39 +1,62 @@
-class FretePadrao {
-  calcular(peso) {
-    return peso * 1.0;
+class SemSocio {
+  calcular(valor) {
+    return { total: valor };
   }
 }
 
-class FreteExpresso {
-  calcular(peso) {
-    return peso * 1.5;
+class SocioPrata {
+  calcular(valor) {
+    return { total: valor * 0.95 };
   }
 }
 
-class FreteInternacional {
-  calcular(peso) {
-    return peso * 3.0;
+class SocioGold {
+  calcular(valor) {
+    return { total: valor * 0.88 };
   }
 }
 
-class CalculadoraFrete {
+class SocioDiamante {
+  calcular(valor) {
+    return { total: valor * 0.8 };
+  }
+}
+
+class SocioZico {
+  calcular(valor) {
+    const total = valor * 0.75;
+    const cashback = total * 0.04;
+    return { total, cashback };
+  }
+}
+
+class CalculadoraDesconto {
   setEstrategia(estrategia) {
     this.estrategia = estrategia;
   }
 
-  calcular(peso) {
-    if (!this.estrategia) throw new Error("Estratégia não definida");
-    return this.estrategia.calcular(peso);
+  calcular(valor) {
+    if (!this.estrategia) {
+      throw new Error("Estratégia não definida");
+    }
+    return this.estrategia.calcular(valor);
   }
 }
 
-const calculadora = new CalculadoraFrete();
+const ingresso = 250;
+const calculadora = new CalculadoraDesconto();
 
-calculadora.setEstrategia(new FretePadrao());
-console.log("Padrao:", calculadora.calcular(10));
+calculadora.setEstrategia(new SemSocio());
+console.log("Sem sócio:", calculadora.calcular(ingresso));
 
-calculadora.setEstrategia(new FreteExpresso());
-console.log("Expresso:", calculadora.calcular(10));
+calculadora.setEstrategia(new SocioPrata());
+console.log("Prata:", calculadora.calcular(ingresso));
 
-calculadora.setEstrategia(new FreteInternacional());
-console.log("Internacional:", calculadora.calcular(10));
+calculadora.setEstrategia(new SocioGold());
+console.log("Gold:", calculadora.calcular(ingresso));
+
+calculadora.setEstrategia(new SocioDiamante());
+console.log("Diamante:", calculadora.calcular(ingresso));
+
+calculadora.setEstrategia(new SocioZico());
+console.log("Zico:", calculadora.calcular(ingresso));
