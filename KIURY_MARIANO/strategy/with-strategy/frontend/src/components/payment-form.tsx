@@ -34,7 +34,7 @@ export const PaymentForm = () => {
         gap: "1rem",
       }}
     >
-      <h2 style={{ textAlign: "center" }}>Escolha o método de pagamento</h2>
+      <h2 style={{ textAlign: "center" }}>Informe o valor e selecione o método de pagamento</h2>
 
       <label style={{ display: "flex", flexDirection: "column" }}>
         Valor:
