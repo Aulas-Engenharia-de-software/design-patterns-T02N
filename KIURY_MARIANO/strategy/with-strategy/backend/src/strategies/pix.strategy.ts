@@ -1,4 +1,4 @@
-import { PaymentStrategy } from './payment-strategy.interface';
+import { PaymentStrategy } from '../interfaces/payment-strategy.interface';
 
 export class PixPayment implements PaymentStrategy {
   pay(amount: number): string {

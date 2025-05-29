@@ -3,7 +3,7 @@ import { PaymentContext } from "../context/payment-context";
 import { CreditCardPayment } from "../strategies/credit-card.strategy";
 import { PixPayment } from "../strategies/pix.strategy";
 import { BoletoPayment } from "../strategies/boleto.strategy";
-import { PaymentStrategy } from "../strategies/payment-strategy.interface";
+import { PaymentStrategy } from "../interfaces/payment-strategy.interface";
 
 export const handlePayment = (req: Request, res: Response) => {
   const { method, amount } = req.body;
@@ -17,7 +17,7 @@ export const handlePayment = (req: Request, res: Response) => {
     case "pix":
       strategy = new PixPayment();
       break;
-    case "boleto":
+    case "ticket":
       strategy = new BoletoPayment();
       break;
     default:

@@ -71,7 +71,7 @@ export const PaymentForm = () => {
         >
           <option value="credit_card">Cartão de Crédito</option>
           <option value="pix">Pix</option>
-          <option value="boleto">Boleto</option>
+          <option value="ticket">Boleto</option>
         </select>
       </label>
 

@@ -1,4 +1,4 @@
-import { PaymentStrategy } from '../strategies/payment-strategy.interface';
+import { PaymentStrategy } from '../interfaces/payment-strategy.interface';
 
 export class PaymentContext {
   constructor(private strategy: PaymentStrategy) {}
