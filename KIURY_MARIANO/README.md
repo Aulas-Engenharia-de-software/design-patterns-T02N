@@ -1,25 +1,23 @@
 # 💡 Design Patterns em Node.js + TypeScript + React
 
-Este repositório demonstra na prática a aplicação de dois padrões de projeto fundamentais da engenharia de software: **Strategy** e **Adapter**, com separação clara entre versões **com** e **sem** o uso dos padrões. O frontend React é compartilhado entre todas as versões do backend e pode ser usado para comparar o comportamento das APIs.
+Este repositório demonstra na prática a aplicação de dois padrões de projeto fundamentais da engenharia de software: **Strategy** e **Adapter**, com versões **com** e **sem** a aplicação dos padrões. O frontend em React é compartilhado e pode ser usado para testar qualquer uma das APIs.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura do Projeto (Monorepo)
 
 ```plaintext
 KIURY_MARIANO/
-├── backend/
-│   ├── adapter/
-│   │   ├── with-adapter/         → Backend que aplica o padrão Adapter
-│   │   └── without-adapter/      → Backend acoplado diretamente ao sistema legado (sem adapter)
-│   ├── strategy/
-│   │   ├── with-strategy/        → Backend com aplicação do padrão Strategy
-│   │   └── without-strategy/     → Backend com lógica procedural sem Strategy
-│
-├── frontend/                     → Frontend React comum para todos os backends
-│   ├── src/
-│   └── ...
-```
+├── apps/
+│   ├── api-with-adapter/           → Backend com Adapter Pattern
+│   ├── api-without-adapter/       → Backend sem Adapter (chamada direta ao sistema legado)
+│   ├── api-with-strategy/         → Backend com Strategy Pattern
+│   ├── api-without-strategy/      → Backend sem Strategy (switch-case)
+│   └── frontend/                  → Frontend React para todos os testes
+├── node_modules/                  → Pasta única de dependências
+├── package.json                   → Configuração de workspaces e scripts
+├── yarn.lock
+````
 
 ---
 
@@ -29,18 +27,18 @@ KIURY_MARIANO/
 
 ![Strategy Pattern Diagram](https://refactoring.guru/images/patterns/content/strategy/strategy.png?id=379bfba335380500375881a3da6507e0)
 
-- **Diretório:** `backend/strategy/with-strategy`
-- **Objetivo:** Encapsular comportamentos distintos de pagamento (`pix`, `boleto`, `cartão`) em classes separadas, permitindo trocá-los em tempo de execução.
-- **Benefícios:**
+* **Diretório:** `apps/api-with-strategy/`
+* **Objetivo:** Encapsular comportamentos distintos de pagamento (`pix`, `boleto`, `cartão`) em classes específicas, podendo alterná-los em tempo de execução.
+* **Benefícios:**
 
-  - Extensibilidade sem `if` ou `switch`
-  - Clareza e organização por tipo de comportamento
-  - Redução de acoplamento
+  * Evita `switch` ou `if`
+  * Permite adicionar novos métodos de pagamento com facilidade
+  * Reduz acoplamento e aumenta legibilidade
 
-#### 🆚 Comparativo
+#### Comparativo
 
-- `with-strategy`: usa classes concretas de pagamento e um contexto (`PaymentContext`)
-- `without-strategy`: usa `switch-case` no controller, dificultando manutenção
+* `with-strategy`: utiliza classes e contexto de estratégia
+* `without-strategy`: faz tratamento direto com `switch-case` no controller
 
 ---
 
@@ -48,93 +46,92 @@ KIURY_MARIANO/
 
 ![Adapter Pattern Diagram](https://refactoring.guru/images/patterns/content/adapter/adapter-en.png?id=11ef6ae6177291834323e3f918c47cd2)
 
-- **Diretório:** `backend/adapter/with-adapter`
-- **Objetivo:** Adaptar uma interface antiga/incompatível (`LegacyPaymentSystem`) para a interface moderna esperada pela aplicação (`pay(method, amount)`).
-- **Benefícios:**
+* **Diretório:** `apps/api-with-adapter/`
+* **Objetivo:** Adaptar a interface de um sistema legado (`LegacyPaymentSystem`) para um formato moderno esperado pelo controller.
+* **Benefícios:**
 
-  - Permite reuso de código legado sem modificação
-  - Desacopla o controller da lógica legada
-  - Facilita substituição futura da dependência
+  * Permite reusar código legado sem modificações
+  * Traduz chamadas novas para métodos antigos
+  * Separa controller da lógica legada
 
-#### 🆚 Comparativo
+#### Comparativo
 
-- `with-adapter`: usa `LegacyPaymentAdapter` para traduzir chamadas modernas
-- `without-adapter`: chama diretamente métodos legados (`processPix`, `processCredit`, etc.)
+* `with-adapter`: usa um adapter para converter `pay(method, amount)` para chamadas legadas
+* `without-adapter`: faz chamadas diretas aos métodos do sistema legado
 
 ---
 
 ## 🖥️ Frontend (comum para todos)
 
-- **Diretório:** `frontend/`
-- **Tecnologia:** React + TypeScript (Vite)
-- **Objetivo:** Simular envios de pagamentos via formulário
-- **Observação:** O frontend é genérico. Para funcionar, basta ativar qualquer API backend (`with-` ou `without-`), e o frontend se conectará via `http://localhost:3000/api/payment`.
+* **Diretório:** `apps/frontend/`
+* **Tecnologia:** React + TypeScript (Vite)
+* **Objetivo:** Simular envios de pagamentos via formulário
+* **Integração:** A aplicação se conecta ao backend ativo via `http://localhost:3000/api/payment`
 
 ---
 
-## 🚀 Como rodar cada projeto
+## 🚀 Como rodar os projetos (Yarn Workspaces)
 
-### 📦 Backend - Strategy (com padrão)
+Este projeto é um **monorepo** com um único `node_modules` gerenciado por Yarn Workspaces.
+
+Instale tudo de uma vez:
 
 ```bash
-cd backend/strategy/with-strategy
-npm install
-npm run dev
+yarn install
 ```
 
-### 📦 Backend - Strategy (sem padrão)
+### 🎯 Comandos para rodar cada projeto
+
+#### Frontend
 
 ```bash
-cd backend/strategy/without-strategy
-npm install
-npm run dev
-```
-
-### 📦 Backend - Adapter (com padrão)
-
-```bash
-cd backend/adapter/with-adapter
-npm install
-npm run dev
-```
-
-### 📦 Backend - Adapter (sem padrão)
-
-```bash
-cd backend/adapter/without-adapter
-npm install
-npm run dev
-```
-
----
-
-### 🎨 Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
+yarn dev:frontend
 ```
 
 Acesse: [http://localhost:5173](http://localhost:5173)
+
+#### Backend - Strategy (com padrão)
+
+```bash
+yarn dev:strategy
+```
+
+#### Backend - Strategy (sem padrão)
+
+```bash
+yarn dev:strategy:no
+```
+
+#### Backend - Adapter (com padrão)
+
+```bash
+yarn dev:adapter
+```
+
+#### Backend - Adapter (sem padrão)
+
+```bash
+yarn dev:adapter:no
+```
 
 ---
 
 ## 📌 Observações
 
-- Certifique-se de rodar **apenas um backend por vez**, pois todos usam a mesma porta (`3000`).
-- O frontend se conecta ao backend ativo via requisição `POST /api/payment`, enviando `{ method, amount }`.
+* Rode **apenas um backend por vez**, pois todos usam a porta `3000`.
+* O frontend funciona com qualquer backend que esteja ativo, contanto que esteja em `http://localhost:3000`.
 
 ---
 
-## 📚 Padrões usados (referência)
+## 📚 Referências
 
-- [Strategy Pattern - Refactoring.Guru](https://refactoring.guru/design-patterns/strategy)
-- [Adapter Pattern - Refactoring.Guru](https://refactoring.guru/design-patterns/adapter)
-- [Design Patterns Book - GoF](https://en.wikipedia.org/wiki/Design_Patterns)
+* [Strategy Pattern - Refactoring.Guru](https://refactoring.guru/design-patterns/strategy)
+* [Adapter Pattern - Refactoring.Guru](https://refactoring.guru/design-patterns/adapter)
+* [Design Patterns Book - GoF](https://en.wikipedia.org/wiki/Design_Patterns)
 
 ---
 
 ## 🧠 Autor
 
 @KiuryMariano
+
