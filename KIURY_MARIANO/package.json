@@ -1,0 +1,14 @@
+{
+  "name": "design-patterns-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:strategy": "yarn workspace with-strategy dev",
+    "dev:adapter": "yarn workspace with-adapter dev",
+    "dev:strategy:no": "yarn workspace without-strategy dev",
+    "dev:adapter:no": "yarn workspace without-adapter dev"
+  }
+}
