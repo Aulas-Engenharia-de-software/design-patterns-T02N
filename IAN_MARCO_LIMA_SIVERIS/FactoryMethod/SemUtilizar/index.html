@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Notificações - Sem Utilizar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Notificações</h1>
+  <button onclick="run()">Enviar Notificações</button>
+
+  <script>
+    // Funções que representam os tipos de notificação
+    function EmailNotification() {
+        this.type = 'EMAIL';
+        this.message = 'Você tem um novo e-mail!';
+        this.send = function () {
+            logger.add(this.type + ' enviado: ' + this.message);
+        };
+    }
+
+    function SMSNotification() {
+        this.type = 'SMS';
+        this.message = 'Você recebeu um SMS!';
+        this.send = function () {
+            logger.add(this.type + ' enviado: ' + this.message);
+        };
+    }
+
+    function PushNotification() {
+        this.type = 'PUSH';
+        this.message = 'Nova notificação push!';
+        this.send = function () {
+            logger.add(this.type + ' enviado: ' + this.message);
+        };
+    }
+
+    // Logger simples
+    const logger = (function () {
+        let log = '';
+
+        return {
+            add: (msg) => { log += msg + '\n'; },
+            show: () => {
+                alert(log);
+                log = '';
+            }
+        };
+    })();
+
+    // Versão ingênua: cria notificações diretamente
+    const run = () => {
+        let notifications = [];
+
+        notifications.push(new EmailNotification());
+        notifications.push(new SMSNotification());
+        notifications.push(new PushNotification());
+
+        for (let i = 0; i < notifications.length; i++) {
+            notifications[i].send();
+        }
+
+        logger.show();
+    };
+  </script>
+</body>
+</html>

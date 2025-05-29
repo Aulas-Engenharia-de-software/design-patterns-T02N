@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho de Compras - Sem Utilizar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Carrinho de Compras</h1>
+
+    <div id="produtos">
+        <strong>Produtos no carrinho:</strong>
+        <div id="lista"></div> 
+    </div>
+
+    <div id="contador"><strong>Quantidade de itens:</strong> 0</div>
+
+    <div id="total"><strong>Valor total:</strong> R$ 0.00</div>
+
+    <button onclick="adicionarItem()">Adicionar Produto Aleatório</button>
+
+    <script>
+        //VERSAO QUE NAO UTILIZA O PADRAO OBSERVER
+        
+        //lista de itens no carrinho
+        const carrinho = [];
+
+        //elementos da interface
+        const contadorEl = document.getElementById('contador');
+        const totalEl = document.getElementById('total');
+        const listaEl = document.getElementById('lista');
+
+        //produtos disponiveis
+        const produtos = [
+            { nome: 'Camiseta', preco: 50 },
+            { nome: 'Tênis', preco: 200 },
+            { nome: 'Boné', preco: 30 },
+            { nome: 'Calça', preco: 120 },
+            { nome: 'Jaqueta', preco: 300 },
+            { nome: 'Luvas', preco: 300 },
+            { nome: 'Relógio', preco: 150 },
+            { nome: 'Óculos', preco: 80 },
+            { nome: 'Cinto', preco: 40 },
+            { nome: 'Bolsa', preco: 90 },
+            { nome: 'Mochila', preco: 110 }
+        ];
+
+        //funcao que atualiza toda a interface depois de adicionar um item
+        function atualizarInterface() {
+            // Atualiza contador
+            contadorEl.textContent = `Quantidade de itens: ${carrinho.length}`;
+
+            //atualiza total
+            const total = carrinho.reduce((acc, item) => acc + item.preco, 0);
+            totalEl.textContent = `Valor total: R$ ${total.toFixed(2)}`;
+
+            //atualiza lista de produtos
+            listaEl.innerHTML = '';
+            carrinho.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+                listaEl.appendChild(div);
+            });
+        }
+
+        //funcao que add um produto no carrinho
+        function adicionarItem() {
+            const item = produtos[Math.floor(Math.random() * produtos.length)];
+            carrinho.push(item);
+            atualizarInterface();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Notificações - Utilizando</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Notificações</h1>
+  <button onclick="run()">Enviar Notificações</button>
+
+  <script>
+    function NotificationFactory() {
+
+        // Factory Method cria as notificacoes com base no tipo
+        this.createNotification = (type) => {
+            let notification;
+
+            //Cria a instancia da notificação baseado no tipo informado abaixo
+            if (type === 'email')
+                notification = new EmailNotification();
+            if (type === 'sms')
+                notification = new SMSNotification();
+            if (type === 'push')
+                notification = new PushNotification();
+
+            //add a propriedade type na notificação
+            notification.type = type;
+
+            //add a propriedade send na notificação
+            notification.send = function () {
+                logger.add(this.type.toUpperCase() + ' enviado: ' + this.message);
+            };
+
+            //retorna o objeto acima
+            return notification;
+        };
+    }
+
+        //cada funcao cria um tipo de notificação
+    function EmailNotification() {
+        this.message = 'Você tem um novo e-mail!';
+    }
+    function SMSNotification() {
+        this.message = 'Você recebeu um SMS!';
+    }
+    function PushNotification() {
+        this.message = 'Nova notificação push!';
+    }
+
+    //retorna um objeto com dois métodos:
+    //add: adiciona uma mensagem ao log
+    //show: exibe todas as mensagens e limpa o log
+    const logger = (function () {
+        let log = '';
+
+        return {
+            add: (msg) => { log += msg + '\n'; },
+            show: () => {
+                alert(log);
+                log = '';
+            }
+        };
+    })();
+
+    const run = () => {
+        let notifications = []; //armazena as notificacoes em um array que esta vazio
+
+        let factory = new NotificationFactory();
+
+        notifications.push(factory.createNotification('email'));
+        notifications.push(factory.createNotification('sms'));
+        notifications.push(factory.createNotification('push'));
+
+        //envia a notificacao com o send
+        for (let i = 0; i < notifications.length; i++) {
+            notifications[i].send();
+        }
+
+        //mostra a mensagem
+        logger.show();
+    };
+  </script>
+</body>
+</html>
