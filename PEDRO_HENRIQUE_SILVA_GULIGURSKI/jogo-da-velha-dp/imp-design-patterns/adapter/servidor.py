@@ -19,7 +19,7 @@ def realizar_jogada(posicao: int):
 
 
 def print_tabuleiro():
-    print("\n[🔄 TABULEIRO ATUALIZADO]")
+    print("\n[TABULEIRO ATUALIZADO]")
     for i in range(3):
         linha = tabuleiro_fake[i*3:(i+1)*3]
         print(" | ".join(linha))
