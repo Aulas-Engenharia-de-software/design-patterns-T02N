@@ -8,7 +8,7 @@ O projeto tem a seguinte estrutura de arquivos:
 
 ```
 
-database\_example/
+KIURY_MARIANO_design_pattern/singleton_example/
 ├── __init__.py
 ├── db_connection.py
 └── main.py
