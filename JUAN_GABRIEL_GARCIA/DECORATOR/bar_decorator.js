@@ -41,7 +41,6 @@ class LemonDecorator {
     }
 }
 
-// Testando a implementação com Decorator
 let drink = new Drink();
 console.log(drink.getDescription(), drink.getCost()); // Drink básico, 10
 
@@ -50,3 +49,4 @@ console.log(drink.getDescription(), drink.getCost()); // Drink básico, com gelo
 
 drink = new LemonDecorator(drink);
 console.log(drink.getDescription(), drink.getCost()); // Drink básico, com gelo, com limão, 15
+
