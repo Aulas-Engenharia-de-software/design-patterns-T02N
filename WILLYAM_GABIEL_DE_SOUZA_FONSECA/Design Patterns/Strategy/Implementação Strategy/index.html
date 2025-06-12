@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cálculo de Frete (Strategy)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de Frete (Strategy)</h1>
+
+    <label for="tipoEntrega">Tipo de Entrega:</label>
+    <select id="tipoEntrega">
+      <option value="sedex">Sedex</option>
+      <option value="pac">PAC</option>
+      <option value="retirada">Retirada na Loja</option>
+    </select>
+
+    <label for="distancia">Distância (km):</label>
+    <input type="number" id="distancia" placeholder="Digite a distância em km" value="10">
+
+    <button id="btnCalcular">Calcular Frete</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
