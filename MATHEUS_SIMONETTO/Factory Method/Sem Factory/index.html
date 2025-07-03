@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simulador de Investimentos</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Estilos e animações -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-6">
+
+    <div class="bg-gray-800 shadow-2xl rounded-2xl p-8 w-full max-w-xl animate-fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-center">💰 Simulador de Investimentos</h2>
+
+        <!-- Tipo de Investimento -->
+        <label class="block mb-2 font-medium">Tipo de Investimento:</label>
+        <div class="relative mb-4">
+            <select id="tipo"
+                class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 shadow-inner appearance-none cursor-pointer transition hover:ring-2 hover:ring-green-400 pr-10"
+                onchange="toggleCampoMeses()">
+                <option value="cdb">CDB 110% do CDI</option>
+                <option value="poupanca">Poupança</option>
+                <option value="tesouro">Tesouro Selic</option>
+                <option value="prefixado">Tesouro Prefixado 2030</option>
+                <option value="fundo_di">Fundo DI 95% CDI</option>
+                <option value="fundo_x">Fundo X (fixo)</option>
+                <option value="acoes">Ações (simulado)</option>
+                <option value="defi">DeFi (alta variação)</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Aportes -->
+        <label class="block mb-2 font-medium">Aporte Inicial (R$):</label>
+        <input type="text" id="valor" placeholder="R$ 0,00"
+            class="w-full mb-4 p-3 rounded bg-gray-700 text-white border border-gray-600 shadow-inner focus:outline-none" />
+
+        <label class="block mb-2 font-medium">Aporte Mensal (R$):</label>
+        <input type="text" id="aporte" placeholder="R$ 0,00"
+            class="w-full mb-4 p-3 rounded bg-gray-700 text-white border border-gray-600 shadow-inner focus:outline-none" />
+
+        <!-- Tempo -->
+        <div id="campo-meses">
+            <label class="block mb-2 font-medium">Tempo (em meses):</label>
+            <input type="number" id="meses" placeholder="Ex: 12"
+                class="w-full mb-6 p-3 rounded bg-gray-700 text-white border border-gray-600 shadow-inner focus:outline-none" />
+        </div>
+
+        <!-- Botão -->
+        <button onclick="simular()"
+            class="w-full bg-green-500 hover:bg-green-600 transition-all duration-300 text-white font-semibold py-3 rounded-lg shadow-lg">
+            Simular
+        </button>
+
+        <!-- Resultado -->
+        <div id="resultado" class="mt-8 p-6 bg-gray-700 rounded-lg shadow-lg hidden">
+            <!-- Navegação entre abas -->
+            <div class="flex justify-center items-center mb-4 bg-gray-800 p-1 rounded-xl shadow-inner space-x-1" id="tab-menu">
+
+                <button onclick="selecionarAba(this, 'tab-resumo')"
+                    class="tab-nav text-sm px-4 py-2 rounded-md font-medium">Resumo</button>
+                <button onclick="selecionarAba(this, 'tab-grafico')"
+                    class="tab-nav text-sm px-4 py-2 rounded-md font-medium">Gráfico</button>
+                <button onclick="selecionarAba(this, 'tab-metricas')"
+                    class="tab-nav text-sm px-4 py-2 rounded-md font-medium">Métricas</button>
+            </div>
+
+            <script>
+                function selecionarAba(botao, id) {
+                    document.querySelectorAll('.tab-nav').forEach(btn => btn.classList.remove('active'));
+                    botao.classList.add('active');
+                    mostrarAba(id);
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.querySelector('.tab-nav')?.click(); // ativa a primeira aba ao abrir
+                });
+
+            </script>
+
+            <!-- Conteúdo das abas -->
+            <div id="tab-resumo" class="tab-content space-y-2"></div>
+            <div id="tab-grafico" class="tab-content hidden"><canvas id="grafico" class="mt-4 w-full h-56"></canvas>
+            </div>
+            <div id="tab-metricas" class="tab-content hidden space-y-2"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/imask"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="mask.js"></script>
+    <script src="grafico.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function toggleCampoMeses() {
+            const tipo = document.getElementById('tipo').value;
+            const campoMeses = document.getElementById('campo-meses');
+            campoMeses.classList.toggle('hidden', tipo === 'prefixado');
+        }
+    </script>
+</body>
+
+</html>
